@@ -273,8 +273,6 @@ func (sbl *SafeBrowsingList) load(newChunks []*ChunkData) (err error) {
 }
 
 func (sbl *SafeBrowsingList) updateLookupMap(chunk *ChunkData) {
-	sbl.updateLock.Lock()
-	defer sbl.updateLock.Unlock()
 	hashlen := 0
 	hasheslen := len(chunk.Hashes)
 
@@ -287,7 +285,8 @@ func (sbl *SafeBrowsingList) updateLookupMap(chunk *ChunkData) {
 
 	for i := 0; (i + hashlen) <= hasheslen; i += hashlen {
 		hash := chunk.Hashes[i:(i + hashlen)]
-
+		// We may have to make this more fine grained
+		sbl.updateLock.Lock()
 		switch hashlen {
 		case PREFIX_4B_SZ:
 			// we are a hash-prefix
@@ -319,5 +318,7 @@ func (sbl *SafeBrowsingList) updateLookupMap(chunk *ChunkData) {
 				sbl.FullHashes.Delete(lookupHash)
 			}
 		}
+		sbl.updateLock.Unlock()
+
 	}
 }
