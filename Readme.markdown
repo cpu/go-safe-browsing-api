@@ -1,7 +1,7 @@
 !! DEPRECATED !! Google Safe Browsing API !! DEPRECATED !!
 ========================
 
-This is an **UNMAINTAINED AND DEPRECATED** fork of
+This was an **UNMAINTAINED AND DEPRECATED** fork of
 [`rjohnsondev/go-safe-browsing-api`](https://github.com/rjohnsondev/go-safe-browsing-api)
 previously maintained for use in
 [Boulder](https://github.com/letsencrypt/boulder) by Let's Encrypt.
